@@ -1,4 +1,4 @@
-# SQL-harjoitustyön raportti
+# SQL-harjoitustyön raportti (lyhennetty arvioitavaksi lähetetystä versiosta)
 
 ## Selostus toteutetuista toiminnallisuuksista
 
