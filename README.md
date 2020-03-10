@@ -19,38 +19,67 @@ Kaikki ne ohjelman tekemät tietokantakyselyt ja -komennot, joissa tarvitaan kä
 Ohjelmassa on seuraavat toiminnot:
 
 	0) Numeronäppäimen 0 painaminen lopettaa sovelluksen toiminnan. 
-
+   
 	1) Sovellus luo taulut tyhjään tietokantaan, kun käyttäjä painaa numeronäppäintä 1. 
 Jos tietokanta on jo luotu (eli näppäintä 1 on painettu jo aiemmin), tapahtuu SQL-poikkeus, joka käsitellään siten, 
 että ohjelma tulostaa: "Tietokannan luominen epäonnistui, tai tietokanta on jo luotu". Virheilmoituksen jälkeen
 suoritus palaa mainin toistolauseeseen. 
 
 	2) Sovellus lisää uuden paikan tietokantaan, kun käyttäjä painaa numeronäppäintä 2.  
-Ohjelma kysyy käyttäjältä paikan nimen. Poikkeuksen tapahtuessa sovellus antaa virheilmoituksen: "VIRHE: Paikan lisääminen epäonnistui, tai paikka on jo lisätty tietokantaan. " 
+Ohjelma kysyy käyttäjältä paikan nimen. Poikkeuksen tapahtuessa sovellus antaa virheilmoituksen: "VIRHE: Paikan lisääminen 
+epäonnistui, tai paikka on jo lisätty tietokantaan. " 
 
 	3) Sovellus lisää uuden asiakkaan tietokantaan, kun käyttäjä painaa numeronäppäintä 3. 
 Ohjelma kysyy käyttäjältä asiakkaan nimen. Poikkeuksen tapahtuessa sovellus antaa virheilmoituksen: "VIRHE: Asiakkaan
 lisääminen epäonnistui, tai asiakas on jo lisätty tietokantaan."
 
 	4) Sovellus lisää uuden paketin tietokantaan, kun käyttäjä painaa numeronäppäintä 4. 
-Ohjelma kysyy käyttäjältä paketin seurantakoodin ja asiakkaan nimen. Koska Paketit-taulussa paketti liitetään asiakkaaseen Asiakkaat.id:n avulla, sovellukseen toteutettiin haeId-metodi, jolle annetaan parametreina asiakkaan nimi ja SQL-komento, jolla haeId-metodi toteuttaa parametrisoidun tietokantakyselyn ja palauttaa nimeen liittyvän Asiakkaat.id:n. 
+Ohjelma kysyy käyttäjältä paketin seurantakoodin ja asiakkaan nimen. Koska Paketit-taulussa paketti liitetään asiakkaaseen
+Asiakkaat.id:n avulla, sovellukseen toteutettiin haeId-metodi, jolle annetaan parametreina asiakkaan nimi ja SQL-komento, 
+jolla haeId-metodi toteuttaa parametrisoidun tietokantakyselyn ja palauttaa nimeen liittyvän Asiakkaat.id:n. 
 
-On mahdollista, että asiakasta ei ole lisätty tietokantaan, minkä takia sovelluksesta tehtiin käyttäjäystävällisempi siten, että käyttäjälle ilmoitetaan, mikäli asiakasta ei ole tietokannassa. Jos asiakasta ei ole lisätty tietokantaan, haeId-metodin tekemä parametrisoitu kysely johtaa poikkeukseen, joka käsitellään siten, että metodi palauttaa arvon -1, minkä jälkeen kutsuva metodi tulostaa ilmoituksen: "Asiakasta ei ole lisätty tietokantaan. Lisää asiakas tietokantaan painamalla näppäintä 3." Tämän jälkeen ohjelma palaa main-metodin toistolauseeseen. Lisäksi sovellus varautuu kutsuvassa metodissa tapahtuvaan SQL-poikkeukseen antamalla sellaisen sattuessa virheilmoituksen: "VIRHE: Paketin lisääminen epäonnistui, tai paketti on jo lisätty tietokantaan. " 
+On mahdollista, että asiakasta ei ole lisätty tietokantaan, minkä takia sovelluksesta tehtiin käyttäjäystävällisempi siten, 
+että käyttäjälle ilmoitetaan, mikäli asiakasta ei ole tietokannassa. Jos asiakasta ei ole lisätty tietokantaan, haeId-metodin 
+tekemä parametrisoitu kysely johtaa poikkeukseen, joka käsitellään siten, että metodi palauttaa arvon -1, minkä jälkeen 
+kutsuva metodi tulostaa ilmoituksen: "Asiakasta ei ole lisätty tietokantaan. Lisää asiakas tietokantaan painamalla näppäintä 
+3." Tämän jälkeen ohjelma palaa main-metodin toistolauseeseen. Lisäksi sovellus varautuu kutsuvassa metodissa tapahtuvaan SQL-
+poikkeukseen antamalla sellaisen sattuessa virheilmoituksen: "VIRHE: Paketin lisääminen epäonnistui, tai paketti on jo lisätty 
+tietokantaan. " 
 
-Yksi vaihtoehto olisi ollut käyttää viiteavainta, jolloin Paketit-tauluun olisi mahdotonta lisätä Asiakkaat.id:tä, jota ei ole olemassa, mutta kun Asiakkaat.id:tä tarvitaan tässä kohdassa myös paketin lisäämiseen, päädyttiin käyttämään edellä esiteltyä haeId-metodia.
+Yksi vaihtoehto olisi ollut käyttää viiteavainta, jolloin Paketit-tauluun olisi mahdotonta lisätä Asiakkaat.id:tä, jota ei ole 
+olemassa, mutta kun Asiakkaat.id:tä tarvitaan tässä kohdassa myös paketin lisäämiseen, päädyttiin käyttämään edellä esiteltyä 
+haeId-metodia.
 
 	5) Sovellus lisää uuden tapahtuman tietokantaan, kun käyttäjä painaa numeronäppäintä 5. 
-Ohjelma kysyy käyttäjältä paketin seurantakoodin, tapahtuman paikan ja kuvauksen. Tapahtuman päivämäärän ja ajan sovellus hakee automaattisesti Javan LocalDate- ja LocalTime- 
+Ohjelma kysyy käyttäjältä paketin seurantakoodin, tapahtuman paikan ja kuvauksen. Tapahtuman päivämäärän ja ajan sovellus 
+hakee automaattisesti Javan LocalDate- ja LocalTime- 
 luokkien avulla. 
 
-Koska Tapahtumat-taulussa tapahtuma liitetään oikeaan paikkaan ja pakettiin näiden id:iden perusteella, metodissa hyödynnetään jälleen kohdassa 4 esiteltyä haeId-metodia. Jos paikkaa tai pakettia ei ole lisätty tietokantaan, kutsuva metodi tulostaa (esimerkiksi paikan puuttuessa) ilmoituksen: "Paikkaa ei ole lisätty tietokantaan. Lisää paikka tietokantaan painamalla näppäintä 2." Tämän jälkeen ohjelma palaa main-metodin toistolauseeseen. Kutsuvassa metodissa tapahtuvaan SQL-poikkeukseen sovellus varautuu antamalla sellaisen sattuessa virheilmoituksen: "VIRHE: Tapahtuman lisääminen epäonnistui."
+Koska Tapahtumat-taulussa tapahtuma liitetään oikeaan paikkaan ja pakettiin näiden id:iden perusteella, metodissa hyödynnetään 
+jälleen kohdassa 4 esiteltyä haeId-metodia. Jos paikkaa tai pakettia ei ole lisätty tietokantaan, kutsuva metodi tulostaa 
+(esimerkiksi paikan puuttuessa) ilmoituksen: "Paikkaa ei ole lisätty tietokantaan. Lisää paikka tietokantaan painamalla 
+näppäintä 2." Tämän jälkeen ohjelma palaa main-metodin toistolauseeseen. Kutsuvassa metodissa tapahtuvaan SQL-poikkeukseen 
+sovellus varautuu antamalla sellaisen sattuessa virheilmoituksen: "VIRHE: Tapahtuman lisääminen epäonnistui."
 
-	6) Toiminto käynnistyy, kun käyttäjä painaa numeronäppäintä 6. Sovellus hakee paketin kaikki tapahtumat käyttäjän syöttämän seurantakoodin avulla. Sovellus tulostaa tapahtumien päivämäärän, ajan, paikan ja tapahtuman kuvauksen. Tulostuksen luonteen takia sovellukseen lisättiin toiminnallisuus, joka tulostaa ilmoituksen "Ei tapahtumia", jos pakettia ei ole vielä yhdistetty mihinkään tapahtumaan. Tämä toiminnallisuus toteutettiin luokan ResultSet metodin wasNull-avulla. 
+	6) Toiminto käynnistyy, kun käyttäjä painaa numeronäppäintä 6. 
+Sovellus hakee paketin kaikki tapahtumat käyttäjän syöttämän seurantakoodin avulla. Sovellus tulostaa tapahtumien päivämäärän, 
+ajan, paikan ja tapahtuman kuvauksen. Tulostuksen luonteen takia sovellukseen lisättiin toiminnallisuus, joka tulostaa 
+ilmoituksen "Ei tapahtumia", jos pakettia ei ole vielä yhdistetty mihinkään tapahtumaan. Tämä toiminnallisuus toteutettiin 
+luokan ResultSet metodin wasNull-avulla. 
 
-SQL-poikkeuksen sattuessa ohjelma tulostaa: "VIRHE: Tietojen hakeminen epäonnistui. Tarkista paketin seurantakoodi." Tarkistuskehotus lisättiin sen takia, että  SQL-poikkeus tapahtuu ainakin silloin, jos seurantakoodia eli pakettia ei ole lisätty tietokantaan. Vielä käyttäjäystävällisemmän sovelluksesta saisi, jos paketin olemassaolo tarkistettaisiin ja paketin puuttumisesta ilmoitettaisiin heti käyttäjän syötettyä sen seurantakoodin. Toiminnallisuuden voisi toteuttaa haeId-metodin avulla. Toiminnallisuutta ei toteutettu sen takia, että käyttäjältä kysytään tässä vain yhtä asiaa, eli vaikka toiminnallisuus lisättäisiin, se ei vähentäisi käyttäjän työtä.
+SQL-poikkeuksen sattuessa ohjelma tulostaa: "VIRHE: Tietojen hakeminen epäonnistui. Tarkista paketin seurantakoodi." 
+Tarkistuskehotus lisättiin sen takia, että  SQL-poikkeus tapahtuu ainakin silloin, jos seurantakoodia eli pakettia ei ole 
+lisätty tietokantaan. Vielä käyttäjäystävällisemmän sovelluksesta saisi, jos paketin olemassaolo tarkistettaisiin ja paketin 
+puuttumisesta ilmoitettaisiin heti käyttäjän syötettyä sen seurantakoodin. Toiminnallisuuden voisi toteuttaa haeId-metodin 
+avulla. Toiminnallisuutta ei toteutettu sen takia, että käyttäjältä kysytään tässä vain yhtä asiaa, eli vaikka toiminnallisuus 
+lisättäisiin, se ei vähentäisi käyttäjän työtä.
 
-	7) Toiminto käynnistyy, kun käyttäjä painaa numeronäppäintä 7. Sovellus hakee asiakkaan paketit ja niihin liittyvien 
-Sovellus hakee asiakkaan paketit ja niihin liittyvien tapahtumien määrän. Ohjelma kysyy käyttäjältä asiakkaan nimen ja tulostaa jokaisen asiakkaan paketin seurantakoodin ja pakettiin liittyvien tapahtumien määrän. Jälleen hyödynnettiin ResultSet-luokan metodia wasNull niitä tapauksia silmällä pitäen, joissa asiakas on tietokannassa, mutta hänelle ei ole lisätty vielä yhtään pakettia. Tällaisessa tapauksessa ohjelma tulostaa: "Asiakkaalle ei ole lisätty paketteja." SQL-poikkeuksen sattuessa ohjelma sen sijaan tulostaa: "VIRHE: Tietojen hakeminen epäonnistui. Tarkista asiakkaan nimi." 
+	7) Toiminto käynnistyy, kun käyttäjä painaa numeronäppäintä 7. 
+Sovellus hakee asiakkaan paketit ja niihin liittyvien tapahtumien määrän. Ohjelma kysyy käyttäjältä asiakkaan nimen ja 
+tulostaa jokaisen asiakkaan paketin seurantakoodin ja pakettiin liittyvien tapahtumien määrän. Jälleen hyödynnettiin 
+ResultSet-luokan metodia wasNull niitä tapauksia silmällä pitäen, joissa asiakas on tietokannassa, mutta hänelle ei ole 
+lisätty vielä yhtään pakettia. Tällaisessa tapauksessa ohjelma tulostaa: "Asiakkaalle ei ole lisätty paketteja." SQL-
+poikkeuksen sattuessa ohjelma sen sijaan tulostaa: "VIRHE: Tietojen hakeminen epäonnistui. Tarkista asiakkaan nimi." 
 
 	8) Toiminto käynnistyy, kun käyttäjä painaa numeronäppäintä 8. 
 Sovellus hakee paikan tapahtumat. Paikan nimi kysytään käyttäjältä. Tähän metodiin toteutettiin paikan olemassaolon tarkastus
@@ -67,8 +96,11 @@ Javan Random-luokkaa.
 ## SQL-skeema
 
 CREATE TABLE Asiakkaat (id INTEGER PRIMARY KEY, nimi TEXT UNIQUE);
+
 CREATE TABLE Paikat (id INTEGER PRIMARY KEY, nimi TEXT UNIQUE);
+
 CREATE TABLE Paketit (id INTEGER PRIMARY KEY, koodi TEXT UNIQUE, asiakas_id INTEGER);
+
 CREATE TABLE Tapahtumat (paketti_id INTEGER, paikka_id INTEGER, kuvaus TEXT, paiva TEXT, aika TEXT);
 
 ## Tehokkuustestin tulokset
@@ -109,7 +141,7 @@ Tehokkuustestin vaihe 4 (tapahtumien lisääminen): aikaa kului 5.9801219 sekunt
 Tehokkuustestin vaihe 5 (kyselyt asiakkaan pakettien määrästä): aikaa kului 0.147209 sekuntia.
 Tehokkuustestin vaihe 6 (kyselyt paketin tapahtumien määrästä): aikaa kului 111.2129174 sekuntia.
 
-	4) Vertailua ja päätelmiä:
+	Vertailua ja päätelmiä:
 
 Merkittävästi indeksien lisääminen vaikutti vain tehokkuustestin vaiheen 6 suoritusaikaan. Vaiheessa tehtiin kyselyt tuhannen
 paketin tapahtumien määrästä. Kyselyt tehtiin parametrisoidulla SQL-komennolla 
