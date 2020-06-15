@@ -1,5 +1,4 @@
-# SQL-harjoitustyön raportti (lyhennetty arvioitavaksi lähetetystä versiosta)
-
+# SQL-harjoitustyön raportti
 ## Selostus toteutetuista toiminnallisuuksista
 
 Harjoitustyössä toteutettiin Java-kielellä komentoriviohjelma, jonka avulla voi mahdollisimman sujuvasti käyttää pakettien seurantaan suunniteltua tietokantaa. 
